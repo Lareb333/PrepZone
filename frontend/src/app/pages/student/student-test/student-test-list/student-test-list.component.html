@@ -1,0 +1,78 @@
+<div class="p-4 max-sm:px-0">
+  <h2 class="font-semibold text-3xl mb-5 text-center">TESTS</h2>
+  <div class="flex justify-center">
+    <div class="bg-gray-200 p-1 rounded-full">
+      <input #f (search)="search = f.value; page = 1; getData()" type="search"
+        class="p-2 max-w-[250px] w-[50vw] rounded-full bg-gray-300" placeholder="Search" />
+      <a (click)="search = f.value; page = 1; getData()"
+        class="py-2 px-3 w-[40px] inline-block rounded-full bg-gray-300 ml-4">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+    </div>
+  </div>
+  <div class="my-3">
+    <div class="relative">
+      <span (click)="toggleDisplay()">
+        <span class="bg-gray-400 rounded-md text-white p-1 px-2">Sort By
+          <i class="fa-solid fa-chevron-down"></i>
+        </span>
+        <span [style.display]="displayDiv ? 'flex' : 'none'"
+          class="absolute top-7 w-[92.39px] left-0 flex rounded-md flex-col bg-gray-400 text-white">
+          <p [class.light]="-1 == sortBy" (click)="sortBy = -1; getData()" class="p-1 px-2 rounded-t-md">
+            Oldest
+          </p>
+          <p [class.light]="1 == sortBy" (click)="sortBy = 1; getData()" class="p-1 px-2 rounded-b-md">
+            Latest
+          </p>
+        </span>
+      </span>
+    </div>
+  </div>
+  <div class="flex flex-wrap my-3 gap-1 mb-6">
+    <a [class.dark]="subject == 'All'" (click)="subject = 'All'; page = 1; getData()"
+      class="p-2 bg-gray-200 mb-2 rounded-full">All</a>
+    <a [class.dark]="subject == 'physics'" (click)="subject = 'physics'; page = 1; getData()"
+      class="p-2 bg-gray-200  mb-2 rounded-full">Physics</a>
+    <a [class.dark]="subject == 'bio'" (click)="subject = 'bio'; page = 1; getData()"
+      class="p-2 bg-gray-200  mb-2 rounded-full">Biology</a>
+    <a [class.dark]="subject == 'chemistry'" (click)="subject = 'chemistry'; page = 1; getData()"
+      class="p-2 bg-gray-200  mb-2 rounded-full">Chemistry</a>
+    <a [class.dark]="subject == 'math'" (click)="subject = 'math'; page = 1; getData()"
+      class="p-2 bg-gray-200  mb-2 rounded-full">Math</a>
+  </div>
+  <div *ngIf="testList$ | async as testList; else loadingSkeleton">
+    <div (click)="navigate(test._id)" class="p-2 clickDiv  py-4 m-2 mx-1 bg-slate-200" *ngFor="let test of testList.tests">
+      <div class="flex justify-between items-center">
+        <span class="font-semibold text-l capitalize text-gray-800">{{ test.name }}</span><span class="px-1 text-xs uppercase rounded-full bg-gray-500 text-white">{{
+          test.exam
+          }}</span>
+      </div>
+      <div class="flex justify-between items-center">
+        <span class="text-gray-500 font-semibold text-xs">Total Questions:{{ test.totalQuestions }}</span><span
+          class="text-gray-600 text-xs">{{
+          test.date | beforeComma
+          }}</span>
+      </div>
+    </div>
+    <div *ngIf="!testList.tests.length">
+      <h4 class="text-center text-2xl  my-[10vh] font-semibold">No Result Found</h4>
+    </div>
+    <div  *ngIf="testList.tests.length"  class="flex justify-center mt-4 flex-wrap gap-1">
+      <a *ngFor="let page1 of testList.pageno" [class.dark]="page1 == page" (click)="page = page1; getData()"
+        class="rounded-full mb-2  bg-gray-200"><span class="m-2 aspect-square">{{ page1 }}</span></a>
+    </div>
+  </div>
+
+  <ng-template #loadingSkeleton>
+    <div class="p-2 bg-gray-100">
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+      <div class="h-12 my-2 skeleton-loader"></div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,23 @@
+.left {
+  transform: translateX(-100%);
+  z-index: 5;
+  transition-duration: 500ms;
+}
+.center {
+  transform: translateX(0);
+  z-index: 10;
+  transition-duration: 500ms;
+}
+.right {
+  z-index: 0;
+  transform: translateX(100%);
+  transition-duration: 500ms;
+}
+.gr {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.7400210084033614) 0%,
+    rgba(75, 27, 27, 0) 74%
+  );
+}

@@ -1,0 +1,52 @@
+<div id="home" class="bg-slate-50 main">
+  <nav class="max-w-screen-2xl flex p-4 justify-between mx-auto items-center">
+    <div class="animate_up relative z-[200]  ">
+      <a href="#home" class="flex items-center ">
+        <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 84 96">
+          <g transform="translate(-8.000000, -2.000000)">
+            <g transform="translate(11.000000, 5.000000)">
+              <path class="path" d="M31.4,30v30v-15h15v-15v30" />
+              <polygon class="polygon" fill="transparent" points="39 0 0 22 0 67 39 90 78 68 78 23" />
+            </g>
+          </g>
+        </svg>
+        <span class="text-xs">Project X</span>
+      </a>
+    </div>
+    <div [style.width]="navStatus?'100vw':'0px'" (click)="toggleClass(list)" class="fixed z-50 filter1 h-full sm:none  top-0 right-0"></div>
+    <div #list
+      class="max-sm:fixed max-sm:w-1/2 max-sm:top-0 max-sm:-right-full duration-100 max-sm:bg-slate-100 max-sm:h-[100vh] max-sm:shadow-md z-50">
+      <ul
+        class="flex text-sm max-sm:flex-col max-sm:w-full max-sm:justify-start max-sm:items-stretch max-sm:h-full max-sm:py-20 max-sm:pt-[20vh] max-sm:px-4 max-sm:space-y-5">
+        <li class="animate_up delay-100">
+          <a routerLink="/" (click)="toggleClass(list)" routerLinkActive="active" class="m-1 p-2">Home</a>
+        </li>
+        <li [style.animationDelay]="'200ms'" class="animate_up">
+          <a (click)="navigate('#about'); toggleClass(list)" class="m-1 p-2">About</a>
+        </li>
+        <li [style.animationDelay]="'400ms'" class="animate_up">
+          <a  (click)="navigate('#results');toggleClass(list)" class="m-1 p-2">Results</a>
+        </li>
+        <li [style.animationDelay]="'600ms'" class="animate_up">
+          <a (click)="navigate('#contact'); toggleClass(list)" class="m-1 p-2">Contact</a>
+        </li>
+        <li [style.animationDelay]="'800ms'" class="animate_up delay-500">
+          <a (click)="adminLogin(); toggleClass(list)" class="m-1 p-2">Admin</a>
+        </li>
+      </ul>
+    </div>
+    <div class="max-sm:ml-auto">
+      <button [style.animationDelay]="'200ms'" (click)="navigateToRoute()" type="button"
+        class="text-gray-900 my-auto bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 font-medium rounded-full text-sm px-3 py-1.5 mr-2 animate_up">
+        <i class="fa-brands fa-google mr-1"></i>
+        Login
+      </button>
+    </div>
+    <div class="ml-2 block sm:hidden h-[30px] aspect-square my-auto z-50">
+      <a (click)="toggleClass(list)" class="flex flex-col justify-around items-end h-full w-full">
+        <div [class.open1]="navStatus" class="h-[5px] w-full bg-gray-700 rounded-full duration-300"></div>
+        <div [class.open2]="navStatus" class="h-[5px] w-2/3 bg-gray-700 rounded-full duration-300"></div>
+      </a>
+    </div>
+  </nav>
+</div>

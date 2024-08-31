@@ -1,0 +1,119 @@
+<div class="p-4 max-sm:px-0">
+  <div class="my-6 mt-2">
+    <a routerLink="list" class="p-3 bg-slate-500 text-white rounded-full">
+      <i class="fa-solid fa-arrow-left fa-lg"></i>
+      Back
+    </a>
+  </div>
+  <h1 class="mt-4 text-xl font-semibold">Test Results</h1>
+  <div class="flex gap-3 justify-between items-center flex-wrap mb-4 mt-2">
+    <div class="bg-gray-200 p-1 rounded-full">
+      <input
+        #f
+        (search)="search = f.value; page = 1; getData()"
+        type="search"
+        class="p-2 max-w-[250px] w-[50vw] rounded-full bg-gray-300"
+        placeholder="Search"
+      />
+      <a
+        (click)="search = f.value; page = 1; getData()"
+        class="py-2 px-3 w-[40px] inline-block rounded-full bg-gray-300 ml-4"
+      >
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </a>
+    </div>
+    <div class="relative z-0 flex-shrink-0">
+      <span (click)="toggleDisplay()">
+        <span class="bg-gray-400 rounded-md text-white p-1 px-2"
+          >Sort By
+          <i class="fa-solid fa-chevron-down"></i>
+        </span>
+        <span
+          [style.display]="displayDiv ? 'flex' : 'none'"
+          class="absolute z-0 top-7 w-[92.39px] left-0 flex rounded-md flex-col bg-gray-400 text-white"
+        >
+          <p
+            [class.light]="-1 == sortBy"
+            (click)="sortBy = -1; getData()"
+            class="p-1 px-2 rounded-t-md"
+          >
+            Higest
+          </p>
+          <p
+            [class.light]="1 == sortBy"
+            (click)="sortBy = 1; getData()"
+            class="p-1 px-2 rounded-b-md"
+          >
+            Lowest
+          </p>
+        </span>
+      </span>
+    </div>
+  </div>
+  <div *ngIf="attemptData$ | async as studentData; else loadingSkeleton">
+    <div class="flex flex-wrap text-xs justify-center gap-3">
+      <span
+        [routerLink]="
+          '/admin/test/resultInfo/' +
+          student._id +
+          '/' +
+          student.results[0]._id +
+          '/' +
+          testId
+        "
+        class="p-2 clickDiv flex-1 flex justify-between gap-2 rounded-xl bg-slate-200"
+        *ngFor="let student of studentData.students"
+      >
+        <div>
+          <img
+            height="96px"
+            width="96px"
+            class="border border-gray-300 rounded-xl min-w-[96px] min-h-[96px]"
+            [src]="student.profileImg"
+          />
+        </div>
+        <div class="flex-1 p-2 flex flex-col whitespace-nowrap justify-center">
+          <p><span class="font-semibold">Name: </span>{{ student.name }}</p>
+          <p>
+            <span class="font-semibold">Score: </span
+            >{{ student.results[0].marks }}
+          </p>
+        </div>
+      </span>
+    </div>
+    <div *ngIf="!studentData.students.length">
+      <h4 class="text-center text-2xl my-[10vh] font-semibold">
+        No Result Found
+      </h4>
+    </div>
+    <div
+      *ngIf="studentData.students.length"
+      class="flex justify-center mt-4 gap-1 flex-wrap"
+    >
+      <a
+        *ngFor="let page1 of studentData.pageno"
+        [class.dark]="page1 == page"
+        (click)="page = page1; getData()"
+        class="rounded-full mb-2 bg-gray-200"
+        ><span class="m-2 aspect-square">{{ page1 }}</span></a
+      >
+    </div>
+  </div>
+  <ng-template #loadingSkeleton>
+    <div class="flex flex-wrap gap-3 my-2">
+      <div
+        *ngFor="let load of loadingArray"
+        class="min-w-[280px] flex-1 p-2 border bg-gray-100 rounded-xl gap-2 flex flex-col"
+      >
+        <div class="flex flex-1">
+          <div class="skeleton-loader rounded-xl w-24 h-24"></div>
+          <div class="flex-1 h-full">
+            <div class="h-4 skeleton-loader my-2 mx-2"></div>
+            <div class="h-4 skeleton-loader my-2 mx-2"></div>
+            <div class="h-4 skeleton-loader my-2 mx-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,15 @@
+.dark{
+  background: slategray;
+  color: white;
+  border: 1px solid black;
+}
+.aspect-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px; /* Set the desired width here */
+  height: 15px; /* Set the same height as the width to make it square */
+}
+.light{
+  background: #3b82f6;
+}

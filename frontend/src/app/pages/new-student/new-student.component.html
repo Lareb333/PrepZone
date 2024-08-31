@@ -1,0 +1,70 @@
+<div>
+  <div class="max-w-screen-2xl mx-auto p-4">
+ <h2 class="font-semibold text-3xl mb-4 my-12 text-center ">Complete Your Profile</h2>
+    <div class="md:flex justify-center gap-5">
+
+    <img src="assets/newForm.svg" class="max-w-[400px] mx-auto" alt="">
+    <form (ngSubmit)="onSubmit(profileForm)" class="max-w-[400px] mt-16 mx-auto" #profileForm="ngForm">
+      <label for="name">Name</label>
+      <input
+      [(ngModel)]="name"
+        class=" w-full bg-gray-100 rounded-sm p-3"
+        type="text"
+        name="name"
+        placeholder="Name"
+        (input)="nameValid()"
+      />
+      <p class="mb-4 text-red-600">{{nameError}}</p>
+      <label for="phoneNumber">Phone Number</label>
+      <input
+      [(ngModel)]="phoneNumber"
+        class=" w-full bg-gray-100 rounded-sm p-3"
+        type="number"
+        name="phoneNumber"
+        (input)="phoneNumberValid()"
+        placeholder="Phone Number"
+      />
+      <p class="mb-6  text-red-600">{{phoneNumberError}}</p>
+      <div class=" mt-2">
+        <span class="mr-3 inline-block mb-4">PREPARING FOR: </span>
+        <span class="bg-gray-100 p-2 px-0 mx-1 text-black rounded-l-md">
+          <input
+      [(ngModel)]="prep"
+            class="peer hidden appearance-none outline-none"
+            type="radio"
+            name="prep"
+            value="Neet"
+        (change)="prepValid()"
+            id="neet"
+          />
+          <label
+            class="cursor-pointer select-none p-2 rounded-l-md text-center peer-checked:bg-blue-500 peer-checked:font-semibold peer-checked:text-white"
+            for="neet"
+            >Neet</label
+          >
+        </span>
+        <span class="bg-gray-100 p-2 px-0 rounded-r-md text-black">
+          <input
+      [(ngModel)]="prep"
+        (change)="prepValid()"
+            class="peer hidden appearance-none outline-none"
+            type="radio"
+            name="prep"
+            value="Jee"
+            id="jee"
+          />
+          <label
+            class="cursor-pointer select-none p-2 rounded-r-md text-center peer-checked:bg-blue-500 peer-checked:font-semibold peer-checked:text-white"
+            for="jee"
+            >Jee</label
+          >
+        </span>
+      <p class="mb-4 text-red-600">{{prepError}}</p>
+      </div>
+      <button type="submit" class="p-3 text-white w-full bg-blue-500 hover:bg-blue-600 mt-10 rounded-md">
+        Continue
+      </button>
+    </form>
+    </div>
+  </div>
+</div>

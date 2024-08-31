@@ -1,0 +1,241 @@
+<div class="bg-gray-50 rounded-md p-4 min-h-full max-sm:pt-[80px] max-sm:pb-[134px]">
+  <div class="p-4 max-sm:px-0">
+    <h2 class="my-4 font-semibold text-2xl">Dashboard</h2>
+    <div *ngIf="dashboardData$ | async as data; else loadingSkeleton1">
+      <div class="flex gap-3 text-white text-center">
+        <div class="flex-1 rounded-3xl bg-rose-500 px-4 py-5">
+          <p class="font-bold text-lg">
+            {{ data.totalStudent }}
+          </p>
+          <p>Total Students</p>
+        </div>
+        <div class="flex-1 rounded-3xl bg-blue-500 px-4 py-5">
+          <p class="font-bold text-xl">
+            {{
+            data.jeePhysics +
+            data.jeeChemistry +
+            data.jeeMath +
+            data.numPhysics +
+            data.numChemistry +
+            data.numMath +
+            data.neetPhysics +
+            data.neetChemistry +
+            data.neetBio
+            }}
+          </p>
+          <p>Total Questions</p>
+        </div>
+      </div>
+      <div class="bg-slate-200 flex max-sm:flex-col rounded-3xl gap-2 p-2 mt-3">
+        <div class="flex justify-center max-sm:flex-row px-2 max-sm:justify-start max-sm:gap-2 flex-col items-center">
+          <p class="font-semibold text-xl text-blue-800">JEE</p>
+          <p class="font-semibold text-md text-blue-800">Questions</p>
+        </div>
+        <div class="flex-1 flex-wrap flex gap-2">
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{
+              data.jeePhysics +
+              data.jeeChemistry +
+              data.jeeMath +
+              data.numPhysics +
+              data.numChemistry +
+              data.numMath
+              }}
+            </p>
+            <p>Total</p>
+          </div>
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.jeePhysics + data.numPhysics }}
+            </p>
+            <p>Physics</p>
+          </div>
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.jeeChemistry + data.numChemistry }}
+            </p>
+            <p>Chemistry</p>
+          </div>
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.jeeMath + data.numMath }}
+            </p>
+            <p>Math</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-200 flex max-sm:flex-col rounded-3xl gap-2 p-2 mt-3">
+        <div class="flex justify-center px-2 max-sm:flex-row max-sm:justify-start max-sm:gap-2 flex-col items-center">
+          <p class="font-semibold text-xl text-blue-800">NEET</p>
+          <p class="font-semibold text-md text-blue-800">Questions</p>
+        </div>
+        <div class="flex-1 flex-wrap flex gap-2">
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.neetPhysics + data.neetChemistry + data.neetBio }}
+            </p>
+            <p>Total</p>
+          </div>
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.neetPhysics }}
+            </p>
+            <p>Physics</p>
+          </div>
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.neetChemistry }}
+            </p>
+            <p>Chemistry</p>
+          </div>
+          <div class="bg-white flex-1 text-center p-2 rounded-2xl">
+            <p class="text-lg font-semibold">
+              {{ data.neetBio }}
+            </p>
+            <p>Bio</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #loadingSkeleton1>
+      <div>
+        <div class="flex gap-3 my-4">
+          <div class="flex-1 h-24 skeleton-loader rounded-3xl"></div>
+          <div class="flex-1 h-24 skeleton-loader rounded-3xl"></div>
+        </div>
+        <div class="flex flex-wrap min-h-[96px] gap-2 rounded-3xl p-2 my-4 border bg-gray-100">
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+        </div>
+        <div class="flex flex-wrap min-h-[96px] gap-2 rounded-3xl p-2 my-4 border bg-gray-100">
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+          <div class="flex-1 min-h-[80px] min-w-[70px] rounded-2xl skeleton-loader"></div>
+        </div>
+      </div>
+    </ng-template>
+    <h1 class="mt-4 text-xl font-semibold">Student Ranking</h1>
+    <div class="flex gap-3 justify-between items-center flex-wrap mb-4 mt-2">
+      <div class="bg-gray-200 p-1 rounded-full">
+        <input #f (search)="search = f.value; page = 1; getData()" type="search"
+          class="p-2 max-w-[250px] w-[50vw] rounded-full bg-gray-300" placeholder="Search" />
+        <a (click)="search = f.value; page = 1; getData()"
+          class="py-2 px-3 w-[40px] inline-block rounded-full bg-gray-300 ml-4">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+      </div>
+      <div class="flex gap-3 flex-1 items-center min-w-[200px] justify-between">
+        <span class="bg-gray-300 border-gray-200 flex-shrink-0 border-4 rounded-full">
+          <a [class.active]="exam == 'Jee'" (click)="exam = 'Jee'; getData()"
+            class="rounded-full py-1 px-3 -mr-1 h-full inline-block"><span
+              class="flex justify-center h-full w-full items-center">
+              <p>JEE</p>
+            </span></a>
+          <a [class.active]="exam == 'Neet'" (click)="exam = 'Neet'; getData()"
+            class="rounded-full inline-block h-full py-1 px-2"><span
+              class="flex justify-center h-full w-full items-center">
+              <p>NEET</p>
+            </span></a>
+        </span>
+        <div class="relative z-0 flex-shrink-0">
+          <span (click)="toggleDisplay()">
+            <span class="bg-gray-400 rounded-md text-white p-1 px-2">Sort By
+              <i class="fa-solid fa-chevron-down"></i>
+            </span>
+            <span [style.display]="displayDiv ? 'flex' : 'none'"
+              class="absolute z-0 top-7 w-[92.39px] left-0 flex rounded-md flex-col bg-gray-400 text-white">
+              <p [class.light]="1 == sortBy" (click)="sortBy = 1; getData()" class="p-1 px-2 rounded-t-md">
+                Average
+              </p>
+              <p [class.light]="-1 == sortBy" (click)="sortBy = -1; getData()" class="p-1 px-2 rounded-b-md">
+                Top
+              </p>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="studentData$ | async as studentData; else loadingSkeleton">
+      <div class="flex flex-wrap text-xs justify-center">
+        <span class="p-2 flex-1 flex flex-col justify-between gap-2 rounded-3xl bg-slate-200 my-2 m-1"
+          *ngFor="let student of studentData.students">
+          <div class="flex gap-2 items-center">
+            <div>
+              <img height="96px" width="96px" class="border border-gray-300 rounded-2xl" [src]="student.profileImg" />
+            </div>
+            <div class="flex-1">
+              <p>{{ student.name }}</p>
+              <p>{{ student.email }}</p>
+              <p>{{ student.phoneNumber }}</p>
+              <p>Preparing for:{{ student.prep }}</p>
+            </div>
+          </div>
+          <div class="flex gap-1">
+            <div class="rounded-2xl p-2 flex-1 text-center border bg-white">
+              <p>{{ student.topMarks[0] }}</p>
+              <p>
+                JEE <br />
+                Hightest
+              </p>
+            </div>
+            <div class="rounded-2xl p-2 flex-1 text-center border bg-white">
+              <p>{{ student.topMarks[1] }}</p>
+              <p>
+                NEET <br />
+                Hightest
+              </p>
+            </div>
+            <div class="rounded-2xl p-2 flex-1 text-center border bg-white">
+              <p>{{ student.averageMarks[0] }}</p>
+              <p>
+                JEE <br />
+                Average
+              </p>
+            </div>
+            <div class="rounded-2xl p-2 flex-1 text-center border bg-white">
+              <p>{{ student.averageMarks[1] }}</p>
+              <p>
+                NEET <br />
+                Average
+              </p>
+            </div>
+          </div>
+        </span>
+      </div>
+      <div *ngIf="!studentData.students.length">
+        <h4 class="text-center text-2xl my-[10vh] font-semibold">
+          No Result Found
+        </h4>
+      </div>
+      <div *ngIf="studentData.students.length" class="flex justify-center mt-4 gap-1 flex-wrap">
+        <a *ngFor="let page1 of studentData.pageno" [class.dark]="page1 == page" (click)="page = page1; getData()"
+          class="rounded-full mb-2 bg-gray-200"><span class="m-2 aspect-square">{{ page1 }}</span></a>
+      </div>
+    </div>
+    <ng-template #loadingSkeleton>
+      <div class="flex flex-wrap gap-3 my-2">
+        <div *ngFor="let load of loadingArray"
+          class="min-w-[280px] flex-1 h-[160px] p-2 border bg-gray-100 rounded-3xl gap-2 flex flex-col">
+          <div class="flex flex-1">
+            <div class="skeleton-loader rounded-2xl w-20 h-20"></div>
+            <div class="flex-1 h-full">
+              <div class="h-4 skeleton-loader my-2 mx-2"></div>
+              <div class="h-4 skeleton-loader my-2 mx-2"></div>
+              <div class="h-4 skeleton-loader my-2 mx-2"></div>
+            </div>
+          </div>
+          <div class="flex flex-1 gap-1">
+            <div class="flex-1 skeleton-loader rounded-2xl h-full"></div>
+            <div class="flex-1 skeleton-loader rounded-2xl h-full"></div>
+            <div class="flex-1 skeleton-loader rounded-2xl h-full"></div>
+            <div class="flex-1 skeleton-loader rounded-2xl h-full"></div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

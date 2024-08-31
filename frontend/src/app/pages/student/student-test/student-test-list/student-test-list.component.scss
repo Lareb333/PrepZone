@@ -1,0 +1,18 @@
+.wpr {
+  min-height: calc(100vh - 64px);
+}
+.dark{
+  background: slategray;
+  color: white;
+  border: 1px solid black;
+}
+.light{
+  background: #3b82f6;
+}
+.aspect-square {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+}

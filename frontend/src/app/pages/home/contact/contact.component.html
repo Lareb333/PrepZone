@@ -1,0 +1,148 @@
+<div class="main py-5 pb-9">
+  <div
+    class="max-w-screen-2xl gap-20 flex justify-center flex-wrap py-6 mx-auto w-[90vw]"
+  >
+    <div class="max-w-full">
+      <h4 class="font-semibold text-3xl mb-6">Pricing And Benefits</h4>
+      <div class="max-w-full flex flex-wrap gap-3">
+        <div class="max-md:overflow-x-scroll sc">
+          <div
+            class="flex gap-3 flex-wrap max-md:flex-row flex-col"
+          >
+            <div
+              class="p-4 max-md:flex-1 border border-red-300 min-w-[190px] border-gray rounded-xl bg-red-50"
+            >
+              <h5 class="font-semibold">Individual Subject</h5>
+              <h5
+                class="text-center  font-bold my-3 mb-1 text-2xl"
+              >
+                &#8377; 599
+              </h5>
+              <p class="text-gray-700 text-center text-sm">Per Subject/Month</p>
+            </div>
+            <div
+              class="p-4 max-md:flex-1  border border-red-300 min-w-[190px] border-gray rounded-xl bg-red-50"
+            >
+              <h5 class="font-semibold">Combined Subjects</h5>
+              <h5
+                class="text-center  font-bold my-3 mb-1 text-2xl"
+              >
+                &#8377; 1599
+              </h5>
+              <p class="text-gray-700 text-center text-sm">
+                Per Month For 3 Subjects
+              </p>
+            </div>
+            <div
+              class="p-4 max-md:flex-1  border border-red-300 min-w-[190px] border-gray rounded-xl bg-red-50"
+            >
+              <h5 class="font-semibold">Dropper Plan</h5>
+              <h5
+                class="text-center  font-bold my-3 mb-1 text-2xl"
+              >
+                &#8377; 15990
+              </h5>
+              <p class="text-gray-700 text-center text-sm">
+                For All Subjects For 1 Year
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="md:min-w-[300px] max-md:flex-1">
+          <div class="border border-blue-300 p-4 h-full rounded-xl bg-blue-50">
+              <h3 class="text-2xl text-center md:-pt-5 font-semibold">
+                Benefits
+              </h3>
+            <ul class="flex justify-center h-full pb-2 flex-col gap-3">
+              <li>
+                <span
+                  class="inline-block w-2 my-auto bg-gray-700 mr-2 rounded-full aspect-square"
+                ></span
+                >3 Days free trail
+              </li>
+              <li>
+                <span
+                  class="inline-block w-2 my-auto bg-gray-700 mr-2 rounded-full aspect-square"
+                ></span
+                >Experienced Teachers
+              </li>
+              <li>
+                <span
+                  class="inline-block w-2 my-auto bg-gray-700 mr-2 rounded-full aspect-square"
+                ></span
+                >Advanced Online Testing System
+              </li>
+              <li>
+                <span
+                  class="inline-block w-2 my-auto bg-gray-700 mr-2 rounded-full aspect-square"
+                ></span
+                >Consistent Lectures
+              </li>
+              <li>
+                <span
+                  class="inline-block w-2 my-auto bg-gray-700 mr-2 rounded-full aspect-square"
+                ></span
+                >Guidance and Support
+              </li>
+              <li>
+                <span
+                  class="inline-block w-2 my-auto bg-gray-700 mr-2 rounded-full aspect-square"
+                ></span
+                >Regular Testing
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div  id="contact" class="flex-1 md:min-w-[300px] p-2 max-w-[500px]">
+      <h2 class="text-center font-semibold text-3xl">Contact Us</h2>
+      <p class="text-center text-sm text-gray-700 mt-2 mb-5">
+        Got a technical issue? Want to send feedback about a beta feature? Need
+        details about our plans? Let us know.
+      </p>
+      <form
+        (ngSubmit)="onSubmit(profileForm)"
+        #profileForm="ngForm"
+        ngNativeValidate
+      >
+        <p class="font-semibold text-xs mt-3">Email</p>
+        <input
+          ngModel
+          type="text"
+          required
+          class="bg-gray-200 mt-1 border-none w-full p-2 rounded-md"
+          name="email"
+          placeholder="example@gmail.com"
+        />
+        <p class="font-semibold text-xs mt-3">Subject</p>
+        <input
+          ngModel
+          type="text"
+          required
+          class="bg-gray-200 mt-1 border-none w-full p-2 rounded-md"
+          name="subject"
+          placeholder="how we can help you"
+        />
+        <p class="font-semibold text-xs mt-3">Your Message</p>
+        <textarea
+          rows="5"
+          ngModel
+          required
+          type="text"
+          class="bg-gray-200 mt-1 border-none w-full rounded-md border-gray-600 p-2"
+          name="message"
+          placeholder="Leave a message"
+        ></textarea>
+        <button
+          type="submit"
+          class="py-2 px-4 hover:bg-blue-600 rounded-lg bg bg-blue-700 text-white mt-3"
+          type="submit"
+        >
+          Send Message
+        </button>
+        <p *ngIf="submit" class="text-red-700 mt-2">Thank You Contacting Us.</p>
+      </form>
+    </div>
+  </div>
+</div>

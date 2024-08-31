@@ -1,0 +1,53 @@
+<div class="bg-black" [style.height]="height">
+  <div
+    class="relative z-40 max-w-screen-2xl h-full mx-auto w-full text-white overflow-hidden"
+    (touchstart)="swipe($event, 'start')" (touchend)="swipe($event, 'end')"
+  >
+    <div
+      *ngFor="let image of images; index as i"
+      class="absolute top-0 left-0 h-full w-full"
+      [class]="selectImage(i)"
+    >
+      <div class="h-full w-full relative">
+        <img
+          class="w-full h-full object-cover"
+          [src]="image.imageSrc"
+          [alt]="image.imageAlt"
+          (load)="loadIndex=loadIndex+1"
+          *ngIf="loadIndex>=i"
+        />
+        <div
+          class="absolute max-w-[700px] z-10 overflow-x-hidden top-0 left-0 h-full flex-col gap-4 flex justify-center gr px-[5vw]"
+        >
+          <h3
+            [style.animationDelay]="'300ms'"
+            class="font-semibold max-w-[70vw] sm:text-4xl text-2xl drop-shadow-md animate_down"
+          >
+            {{ image.imageHeading }}
+          </h3>
+          <p
+            [style.animationDelay]="'600ms'"
+            class="text-sm max-w-[60vw] sm:text-lg drop-shadow-sm animate_down"
+          >
+            {{ image.imageText }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="absolute left-0 bottom-4 z-[15] w-full flex justify-start pl-[5vw] gap-2">
+      <a
+        *ngFor="let image of images; index as i"
+        (click)="selectedIndex = i"
+        [style.background]="selectedIndex == i ? '#e11d48' : 'white'"
+        class="inline-block w-[10px] h-[10px] rounded-full bg-white drop-shadow-md"
+      >
+      </a>
+    </div>
+    <div class="max-md:hidden flex h-full absolute top-0 left-[1vw] z-[15]  items-center justify-center ">
+      <a (click)="onPrevClick()"><i class="fa-solid fa-chevron-left p-2 drop-shadow-sm  fa-xl"></i></a>
+    </div>
+    <div class="max-md:hidden flex h-full absolute top-0 right-[1vw] z-[15]  items-center justify-center ">
+      <a (click)="onNextClick()"><i class="fa-solid fa-chevron-right drop-shadow-sm p-2 fa-xl"></i></a>
+    </div>
+  </div>
+</div>

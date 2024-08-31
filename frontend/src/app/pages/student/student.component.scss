@@ -1,0 +1,27 @@
+#logo {
+  height: 40px;
+  width: 40px;
+}
+.path {
+  fill: transparent;
+  stroke: black;
+  stroke-width: 5;
+}
+.polygon {
+  fill: transparent;
+  stroke: #4a55a2;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.active {
+  font-weight: 600;
+}
+.active1 > i,
+.active1 > div {
+  border-radius: 1000px;
+  background: #a0bfe0;
+}
+// .hide-scrollbar::-webkit-scrollbar {
+//     display: none;
+// }

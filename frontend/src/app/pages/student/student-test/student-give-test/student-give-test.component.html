@@ -1,0 +1,81 @@
+<div class="sm:px-4">
+  <div class="flex scale-105 flex-wrap items-center px-4 py-2 mt-4 bg-slate-200">
+    <h1 class="font-semibold capitalize text-2xl">
+      {{ testData.name }}
+      <span class="bg-gray-600 uppercase text-xs text-white ml-3 rounded-full p-2 py-1">{{ testData.exam }}</span>
+    </h1>
+  </div>
+  <div class="mt-5 flex flex-wrap border-y-gray-200 border-y-2">
+    <a *ngFor="let sub of testData.subject; let i = index" class="p-2 mr-2 my-1" (click)="subIndex = i; goSubject()"
+      [style.background]="subIndex == i ? '#cbd5e1' : 'white'">{{ sub }}</a>
+  </div>
+  <div class="pt-2 flex justify-between flex-wrap items-center">
+    <a (click)="cancelTest()" class="bg-red-800 p-2 px-4 rounded-full text-white mt-2">Cancel</a>
+    <span class="bg-gray-600 text-white px-2">{{ index1 + 1 }} / {{ testData.totalQuestions }}</span>
+    <span>{{ timeDisplay }}</span>
+  </div>
+  <div *ngIf="questionData$ | async as questionData ; else loadingSkeleton" class="mt-4">
+    <div class="bg-gray-200 overflow-x-scroll  rounded-md">
+      <p class="text-gray-600 p-2 pb-0">Question: {{ index1 + 1 }}</p>
+      <p [mathjax]="questionData.questionText" class="p-2"></p>
+    </div>
+    <div *ngIf="questionData.img" class="mt-4 max-w-[300px] max-h-[300px]">
+      <img [src]="apiurl + questionData.img" alt="Image" />
+    </div>
+    <div *ngIf="questionData.options" class="my-3">
+      <div class="flex flex-wrap gap-3 mb-2">
+        <div *ngFor="let option of questionData.options; let i = index" class="min-w-[45%] bg-gray-300  overflow-x-scroll rounded-md p-2"
+          [style.display]="i < 2 ? 'inline-block' : 'none'" [class.choose]="i == choosenOption[index1]"
+          (click)="choosenOption[index1] = i">
+          <span class="text-gray-600"> {{ i + 1 }}: </span>
+          <span [mathjax]="option"></span>
+        </div>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <div *ngFor="let option of questionData.options; let i = index" class="min-w-[45%] bg-gray-300  overflow-x-scroll rounded-md p-2"
+          [style.display]="i >= 2 ? 'inline-block' : 'none'" [class.choose]="i == choosenOption[index1]"
+          (click)="choosenOption[index1] = i">
+          <span class="text-gray-600"> {{ i + 1 }}: </span>
+          <span [mathjax]="option"></span>
+        </div>
+      </div>
+    </div>
+    <div class="my-3" *ngIf="!questionData.options">
+      <input [disabled]="!disabled1 && choosenOption[index1] == 999" name="numAnswer" [(ngModel)]="inputValue[index1]"
+        (input)="onInputChange()" type="number" class="p-2 max-w-[250px] w-[50vw] rounded-sm bg-gray-300"
+        placeholder="Answer" />
+    </div>
+    <div class="mt-7 clear-both flex flex-wrap items-center justify-between">
+      <div class="mb-5">
+        <a #p (click)="previousQuestion(p)" [style.background]="index1 === 0 ? 'lightgray' : '#4b5563'"
+          class="bg-gray-600 p-2 rounded-l-md text-white">Previous</a>
+        <a (click)="choosenOption[index1] = 999; inputValue[index1] = ''"
+          class="bg-gray-600 p-2 text-white mx-1">Clear</a>
+        <a #n (click)="nextQuestion(n)" [style.background]="
+            index1 === testData.totalQuestions - 1 ? 'lightgray' : '#4b5563'
+          " class="bg-gray-600 p-2 rounded-r-md text-white">Next</a>
+      </div>
+      <div class="mb-5">
+        <a (click)="makeResult()" class="bg-blue-700 p-2 px-4 rounded-full text-white">Submit</a>
+      </div>
+    </div>
+  </div>
+  <ng-template #loadingSkeleton>
+    <div class="p-2 mt-4 bg-gray-100">
+      <div class="h-24 my-2 rounded-md skeleton-loader"></div>
+      <div class="flex gap-2 my-2">
+        <div class="flex-1 h-10 skeleton-loader"></div>
+        <div class="flex-1 h-10 skeleton-loader"></div>
+      </div>
+      <div class="flex gap-2 my-2">
+        <div class="flex-1 h-10 skeleton-loader"></div>
+        <div class="flex-1 h-10 skeleton-loader"></div>
+      </div>
+      <div class="my-3">
+        <span class="w-20 inline-block h-10 ml-2 skeleton-loader rounded-l-md"></span><span
+          class="w-20 h-10 ml-2 inline-block skeleton-loader"></span><span
+          class="w-20 inline-block h-10 ml-2 rounded-r-md skeleton-loader"></span>
+      </div>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,194 @@
+<div
+  class="p-4 max-sm:pt-[80px] bg-gray-50 rounded-sm min-h-full max-sm:pb-[134px]"
+>
+  <div class="p-4 max-sm:px-0">
+    <h2 class="font-semibold text-3xl mb-5 text-center">NOTES</h2>
+    <div class="flex justify-center">
+      <div class="bg-gray-200 p-1 rounded-full">
+        <input
+          #f
+          (search)="search = f.value; page = 1; getData()"
+          type="search"
+          class="p-2 max-w-[250px] w-[50vw] rounded-full bg-gray-300"
+          placeholder="Search"
+        />
+        <a
+          (click)="search = f.value; page = 1; getData()"
+          class="py-2 px-3 w-[40px] inline-block rounded-full bg-gray-300 ml-4"
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-wrap mt-3 gap-1">
+      <a
+        [class.dark]="subject == 'All'"
+        (click)="subject = 'All'; page = 1; getData()"
+        class="p-2 bg-gray-200 mb-2 rounded-full"
+        >All</a
+      >
+      <a
+        [class.dark]="subject == 'physics'"
+        (click)="subject = 'physics'; page = 1; getData()"
+        class="p-2 bg-gray-200 mb-2 rounded-full"
+        >Physics</a
+      >
+      <a
+        [class.dark]="subject == 'bio'"
+        (click)="subject = 'bio'; page = 1; getData()"
+        class="p-2 bg-gray-200 mb-2 rounded-full"
+        >Biology</a
+      >
+      <a
+        [class.dark]="subject == 'chemistry'"
+        (click)="subject = 'chemistry'; page = 1; getData()"
+        class="p-2 bg-gray-200 mb-2 rounded-full"
+        >Chemistry</a
+      >
+      <a
+        [class.dark]="subject == 'math'"
+        (click)="subject = 'math'; page = 1; getData()"
+        class="p-2 bg-gray-200 mb-2 rounded-full"
+        >Math</a
+      >
+    </div>
+    <div class="flex justify-between items-center">
+      <div class="relative z-0">
+        <span (click)="toggleDisplay()">
+          <span class="bg-gray-400 rounded-md text-white p-1 px-2"
+            >Sort By
+            <i class="fa-solid fa-chevron-down"></i>
+          </span>
+          <span
+            [style.display]="displayDiv ? 'flex' : 'none'"
+            class="absolute z-0 top-7 w-[92.39px] left-0 flex rounded-md flex-col bg-gray-400 text-white"
+          >
+            <p
+              [class.light]="1 == sortBy"
+              (click)="sortBy = 1; getData()"
+              class="p-1 px-2 rounded-t-md"
+            >
+              Oldest
+            </p>
+            <p
+              [class.light]="-1 == sortBy"
+              (click)="sortBy = -1; getData()"
+              class="p-1 px-2 rounded-b-md"
+            >
+              Latest
+            </p>
+          </span>
+        </span>
+      </div>
+      <a
+        class="p-2 text-sm px-3 rounded-full bg-blue-600 text-white"
+        (click)="addPopup = true"
+        ><i class="fa-solid fa-plus mr-1"></i>Add New</a
+      >
+    </div>
+    <div *ngIf="pdfData$ | async as pdfData; else loadingSkeleton">
+      <div
+        class="p-4 flex items-center my-2 m-1 bg-slate-200"
+        *ngFor="let pdf of pdfData.pdfs"
+      >
+        <div class="flex-1 clickDiv "
+        (click)="pdfDownload(pdf.url)"
+        >
+          <i class="fa-solid fa-file-pdf mx-3"></i>
+          <span class="capitalize font-semibold text-l text-gray-700">{{
+            pdf.name
+          }}</span>
+        </div>
+        <div>
+          <a
+            class="p-2 px-3  text-sm rounded-full bg-red-600 text-white"
+            (click)="deletePdf(pdf.url)"
+            >Delete</a
+          >
+        </div>
+      </div>
+
+      <div *ngIf="!pdfData.pdfs.length" >
+        <h4 class="text-center text-2xl my-[10vh] font-semibold">No Result Found</h4>
+      </div>
+      <div  *ngIf="pdfData.pdfs.length"  class="flex justify-center mt-4 gap-1 flex-wrap">
+        <a
+          *ngFor="let page1 of pdfData.pageno"
+          [class.dark]="page1 == page"
+          (click)="page = page1; getData()"
+          class="rounded-full mb-2 bg-gray-200"
+          ><span class="m-2 aspect-square">{{ page1 }}</span></a
+        >
+      </div>
+    </div>
+    <ng-template #loadingSkeleton>
+      <div class="p-2 mt-4 bg-gray-100">
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+        <div class="h-12 my-2 skeleton-loader"></div>
+      </div>
+    </ng-template>
+  </div>
+</div>
+<div
+  *ngIf="addPopup"
+  class="fixed top-0 right-0 w-full h-full flex filter1 justify-center items-center"
+>
+  <div class="p-4 py-8 m-4 rounded-lg bg-gray-100 shadow relative">
+    <a class=" rounded-full bg-red-600 text-white absolute -right-3 h-[35px] w-[35px]  flex justify-center items-center -top-3" (click)="addPopup=false"><i class="fa-solid fa-xmark fa-lg "></i></a>
+    <form (ngSubmit)="onSubmit(profileForm,pdf)" #profileForm="ngForm" ngNativeValidate>
+      <h3 class="text-center font-semibold text-2xl">Upload Notes</h3>
+      <p class="mt-5">Subject</p>
+      <div class="flex mt-1 flex-wrap text-xs">
+        <a
+          (click)="subject1 = 'physics'"
+          [class.dark]="subject1 == 'physics'"
+          class="p-2 bg-gray-300 mr-1 rounded-l-md mb-2"
+          >Physics</a
+        >
+        <a
+          (click)="subject1 = 'chemistry'"
+          [class.dark]="subject1 == 'chemistry'"
+          class="p-2 bg-gray-300 mr-1 mb-2"
+          >Chemistry</a
+        >
+        <a
+          (click)="subject1 = 'math'"
+          [class.dark]="subject1 == 'math'"
+          class="p-2 bg-gray-300 mr-1 mb-2"
+          >Math</a
+        >
+        <a
+          (click)="subject1 = 'bio'"
+          [class.dark]="subject1 == 'bio'"
+          class="p-2 bg-gray-300 mr-1 rounded-r-md mb-2"
+          >bio</a
+        >
+      </div>
+      <p class="mt-2">Title</p>
+      <input
+          ngModel
+        type="text"
+        required
+        class="p-2 border border-gray-300 mt-1 w-full rounded-md"
+        name="name"
+        placeholder="Title"
+      />
+      <p class="mt-2">File</p>
+      <div>
+        <input ngModel #pdf required class="p-2 w-full border-gray-300 border rounded-md mt-1" type="file" name="pdf" />
+      </div>
+      <button
+        class="mt-3 rounded-md bg-blue-500 text-white px-4 py-2"
+        type="submit"
+      >
+        Add File
+      </button>
+    </form>
+  </div>
+</div>

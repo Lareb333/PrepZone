@@ -1,0 +1,164 @@
+<div class="p-4 max-sm:px-0">
+  <div class="my-6 mt-2">
+    <a (click)="back()" class="p-3 bg-slate-500 text-white rounded-full">
+      <i class="fa-solid fa-arrow-left fa-lg"></i>
+      Back
+    </a>
+  </div>
+  <div class="flex scale-105 flex-wrap items-center px-4 gap-3 py-2 my-4 bg-slate-200">
+    <h1 class="text-2xl">
+      {{ resultData.results.name }}
+      <span class="bg-gray-600 text-sm text-white rounded-full uppercase p-3 py-1">{{ resultData.test.exam }}</span>
+    </h1>
+  </div>
+  <div class="flex flex-wrap justify-start gap-5 mt-5 max-sm:flex-col-reverse">
+    <div class="flex flex-wrap gap-2 justify-center">
+      <div class="w-1/4 min-w-[100px] max-w-[160px] mb-4">
+        <canvas id="MyChart">{{ scoreChart }}</canvas>
+      </div>
+      <div class="my-auto ml-4">
+        <p class="flex items-center mb-2">
+          <span class="aspect-square rounded-full bg-emerald-500 mr-2">{{
+            correct
+            }}</span>
+          Correct
+        </p>
+        <p class="flex items-center mb-2">
+          <span class="aspect-square rounded-full bg-red-500 mr-2">{{
+            wrong
+            }}</span>
+          Wrong
+        </p>
+        <p class="flex items-center mb-5">
+          <span class="aspect-square rounded-full bg-slate-400 mr-2">{{ unattemped }}
+          </span>
+          Not Answered
+        </p>
+      </div>
+    </div>
+    <div class="flex-1">
+      <div class="flex gap-2">
+        <span class="bg-yellow-100 rounded-md py-1 px text-center flex-1 h-auto">{{ resultData.results.marks }}/{{
+          totalMark }}
+          <p class="text-yellow-600 text-xs">SCORE</p>
+        </span>
+
+        <span class="bg-yellow-100 rounded-md py-1 px text-center flex-1">{{ resultData.results.time }}s
+          <p class="text-yellow-600 text-xs">TIME</p>
+        </span>
+        <span class="bg-yellow-100 rounded-md py-1 px text-center flex-1">{{ accuracy }}%
+          <p class="text-yellow-600 text-xs">ACCURACY</p>
+        </span>
+      </div>
+      <p class="text-center bg-gray-300 mt-2 p-1 rounded-md">OVEROLL</p>
+    </div>
+  </div>
+  <div class="border-b-gray-200 border-b-2 mt-8 mb-4 flex flex-wrap justify-center">
+    <span (click)="index1 = i; getQuestion()" [class.boxS]="index1 == i" [style.background]="
+        answer === resultData.results.result[i]
+          ? '#10b981'
+          : resultData.results.result[i] === 999
+            ? '#94a3b8'
+            : '#ef4444'
+      " class="aspect-square bg-gray-300 rounded-full mr-3 mb-3"
+      *ngFor="let answer of resultData.test.answers; let i = index">
+      <span>
+        {{ i + 1 }}
+      </span>
+    </span>
+  </div>
+  <div *ngIf="questionData$ | async as questionData; else loadingSkeleton" class="mt-4 mb-4">
+    <div class="bg-gray-200 rounded-md">
+      <p class="text-gray-600 p-2 pb-0">Question: {{ index1 + 1 }}</p>
+      <p [mathjax]="questionData.questionText" class="p-2"></p>
+    </div>
+    <div *ngIf="questionData.img" class="mt-4 max-w-[300px] max-h-[300px]">
+      <img [src]="apiurl + questionData.img" alt="Image" />
+    </div>
+    <div *ngIf="questionData.options" class="my-3">
+      <div class="flex flex-wrap gap-2 w-full mb-2">
+        <span [style.display]="i < 2 ? 'inline' : 'none'" *ngFor="let option of questionData.options; let i = index"
+          class="min-w-[45%] my-1 bg-gray-200 p-2 rounded-md" [style.background]="getColor(i)">
+          <span class="text-gray-600"> {{ i + 1 }}: </span>
+          <span [mathjax]="option"></span>
+        </span>
+      </div>
+      <div class="flex flex-wrap gap-2 w-full">
+        <span [style.display]="i >= 2 ? 'inline' : 'none'" *ngFor="let option of questionData.options; let i = index"
+          class="min-w-[45%] my-1 bg-gray-200 p-2 rounded-md" [style.background]="getColor(i)">
+          <span class="text-gray-600"> {{ i + 1 }}: </span>
+          <span [mathjax]="option"></span>
+        </span>
+      </div>
+    </div>
+    <div class="my-3" *ngIf="!questionData.options">
+      {{ onInputChange() }}
+      <div class="mb-4">
+        <span class="p-2 bg-gray-200 rounded-md">
+          Input: {{ inputValue }}
+        </span>
+      </div>
+      <div>
+        <span class="p-2 bg-gray-200 rounded-md">
+          Answer: {{ resultData.test.answers[index1] }}
+        </span>
+      </div>
+    </div>
+    <div class="mt-7 clear-both flex flex-wrap items-center justify-between">
+      <div class="mb-5">
+        <a #p (click)="previousQuestion(p)" [style.background]="index1 === 0 ? 'lightgray' : '#4b5563'"
+          class="bg-gray-600 p-2 rounded-l-md text-white">Previous</a>
+
+        <span class="bg-gray-500 text-white p-2 mx-1">{{ index1 + 1 }} / {{ resultData.test.totalQuestions }}</span>
+        <a #n (click)="nextQuestion(n)" [style.background]="
+            index1 === resultData.test.totalQuestions - 1
+              ? 'lightgray'
+              : '#4b5563'
+          " class="bg-gray-600 p-2 rounded-r-md text-white">Next</a>
+      </div>
+      <div class="mb-5"></div>
+    </div>
+  </div>
+  <ng-template #loadingSkeleton>
+    <div class="p-2 mt-4 bg-gray-100">
+      <div class="h-24 my-2 rounded-md skeleton-loader"></div>
+      <div class="flex gap-2 my-2">
+        <div class="flex-1 h-10 skeleton-loader"></div>
+        <div class="flex-1 h-10 skeleton-loader"></div>
+      </div>
+      <div class="flex gap-2 my-2">
+        <div class="flex-1 h-10 skeleton-loader"></div>
+        <div class="flex-1 h-10 skeleton-loader"></div>
+      </div>
+      <div class="my-3">
+        <span class="w-20 inline-block h-10 ml-2 skeleton-loader rounded-l-md"></span><span
+          class="w-20 h-10 ml-2 inline-block skeleton-loader"></span><span
+          class="w-20 inline-block h-10 ml-2 rounded-r-md skeleton-loader"></span>
+      </div>
+    </div>
+  </ng-template>
+  <div class="flex flex-wrap gap-7" *ngIf="resultData.results.subject.length > 1">
+    <div *ngFor="let subject of resultData.results.subject; let i = index">
+      <span class="text-xl uppercase">{{ subject }}</span>
+      <div class="flex text-gray-700 text-center flex-wrap gap-1 pb-3">
+        <div class="bg-gray-200 rounded-md p-2">
+          <p>{{ resultData.results.correct[i] * 4 }}</p>
+          <p class="font-semibold text-xs">Marks</p>
+        </div>
+        <div class="bg-gray-200 p-2 rounded-md">
+          <p>
+            {{
+            mathF(
+            (resultData.results.correct[i] /
+            (resultData.results.correct[i] +
+            resultData.results.wrong[i])) *
+            100
+            )
+            }}%
+          </p>
+          <p class="font-semibold text-xs">Accuracy</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.leaf {
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  border-radius: 77% 23% 70% 30% / 79% 0% 100% 21%;
+}
+.img1 {
+  overflow: hidden;
+  border-radius: 1000px;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+  min-width: 200px;
+}

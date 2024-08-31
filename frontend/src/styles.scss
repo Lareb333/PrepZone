@@ -1,0 +1,78 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+}
+mjx-container {
+  display: inline-block;
+}
+.jax-process {
+  display: inline;
+}
+a {
+  cursor: pointer;
+  text-decoration: none !important;
+}
+.clickDiv{
+  cursor: pointer;
+}
+.animate_up {
+  opacity: 0;
+  animation: up 700ms ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes up {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.animate_down {
+  opacity: 0;
+  animation: down 700ms ease-in;
+  animation-fill-mode: forwards;
+}
+@keyframes down {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.scroll-effect {
+  transform: translateY(50px);
+  opacity: 0;
+}
+.scroll-effect-anmtn {
+  transition-duration: 600ms;
+  transition-timing-function: ease-in;
+}
+.scroll-lock {
+  overflow: hidden;
+}
+.skeleton-loader {
+  background: linear-gradient(90deg, #e5e7eb 25%, #d1d5db 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: loadingAnimation 1.5s infinite;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

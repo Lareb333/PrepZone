@@ -1,0 +1,160 @@
+<div  [style.height]="hi1"  class="fixed z-10  top-0 left-0 w-full pointer-events-none">
+  <div
+    class="hidden max-sm:block overflow-hidden absolute bottom-0 left-0 bg-[#d8e5f2] p-3 pb-[112px] -mb-[100px] w-full pointer-events-auto"
+  >
+    <ul class="flex w-full justify-around text-xs items-center text-center">
+      <li>
+        <a routerLink="dashboard" routerLinkActive="active1">
+          <div class="p-2">
+            <svg
+              class="mx-auto"
+              width="12px"
+              height="12px"
+              viewBox="0 0 15 15"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1.6 0C0.671573 0 0 0.671573 0 1.5V5.5C0 6.32843 0.671573 7 1.5 7H5.5C6.32843 7 7 6.32843 7 5.5V1.5C7 0.671573 6.32843 0 5.5 0H1.5Z"
+                fill="black"
+              />
+              <path
+                d="M9.5 0C8.67157 0 8 0.671573 8 1.5V5.5C8 6.32843 8.67157 7 9.5 7H13.5C14.3284 7 15 6.32843 15 5.5V1.5C15 0.671573 14.3284 0 13.5 0H9.5Z"
+                fill="black"
+              />
+              <path
+                d="M1.5 8C0.671573 8 0 8.67157 0 9.5V13.5C0 14.3284 0.671573 15 1.5 15H5.5C6.32843 15 7 14.3284 7 13.5V9.5C7 8.67157 6.32843 8 5.5 8H1.5Z"
+                fill="black"
+              />
+              <path
+                d="M9.5 8C8.67157 8 8 8.67157 8 9.5V13.5C8 14.3284 8.67157 15 9.5 15H13.5C14.3284 15 15 14.3284 15 13.5V9.5C15 8.67157 14.3284 8 13.5 8H9.5Z"
+                fill="black"
+              />
+            </svg>
+          </div>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a
+          class="w-[61.85px] inline-block"
+          routerLink="add"
+          routerLinkActive="active1"
+          ><i class="fa-solid fa-plus block p-2"></i>Question</a
+        >
+      </li>
+      <li>
+        <a
+          class="w-[61.85px] inline-block"
+          routerLink="test"
+          routerLinkActive="active1"
+          ><i class="fa-solid fa-file block p-2"></i>Test</a
+        >
+      </li>
+      <li>
+        <a
+          class="w-[61.85px] inline-block"
+          routerLink="notes"
+          routerLinkActive="active1"
+          ><i class="fa-solid fa-arrow-up-from-bracket block p-2"></i>Notes</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
+<div
+  class="fixed top-0 z-10 left-0 bg-[#d8e5f2] p-3 w-full flex justify-between items-center sm:hidden"
+>
+  <div>
+    <a (click)="goHome()">
+      <svg
+        class="inline"
+        id="logo"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 84 96"
+      >
+        <g transform="translate(-8.000000, -2.000000)">
+          <g transform="translate(11.000000, 5.000000)">
+            <path class="path" d="M31.4,30v30v-15h15v-15v30" />
+            <polygon
+              class="polygon"
+              fill="transparent"
+              points="39 0 0 22 0 67 39 90 78 68 78 23"
+            />
+          </g>
+        </g>
+      </svg>
+      ProjectX
+    </a>
+  </div>
+  <div>
+    <a (click)="logout()"
+      ><i class="fa-solid fa-right-from-bracket pr-2"></i>Logout</a
+    >
+  </div>
+</div>
+<div class="bg-gray-200 h-[100vh]">
+  <div class="mx-auto max-w-screen-2xl flex h-full">
+    <nav
+      class="p-8 bg-[#d8e5f2] font-semibold text text-center flex flex-col justify-between max-sm:hidden"
+    >
+      <div>
+        <div>
+          <a (click)="goHome()">
+            <svg
+              class="inline"
+              id="logo"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 84 96"
+            >
+              <g transform="translate(-8.000000, -2.000000)">
+                <g transform="translate(11.000000, 5.000000)">
+                  <path class="path" d="M31.4,30v30v-15h15v-15v30" />
+                  <polygon
+                    class="polygon"
+                    fill="transparent"
+                    points="39 0 0 22 0 67 39 90 78 68 78 23"
+                  />
+                </g>
+              </g>
+            </svg>
+            ProjectX
+          </a>
+        </div>
+        <div class="mt-4 mb-10">
+          <img
+            class="rounded-full w-28 h-28 mx-auto"
+            src="./assets/dev.webp"
+            alt="Photo"
+          />
+          <p class="font-bold">Haroon Saifi</p>
+          <p class="text-gray-500 text-sm">Developer</p>
+        </div>
+        <ul class="font-normal">
+          <li class="my-2">
+            <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+          <li class="my-2">
+            <a routerLink="add" routerLinkActive="active">Add Question</a>
+          </li>
+          <li class="my-2">
+            <a routerLink="test" routerLinkActive="active">Tests</a>
+          </li>
+          <li class="my-2" routerLink="notes" routerLinkActive="active">
+            <a>Notes</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a (click)="logout()"
+          ><i class="fa-solid fa-right-from-bracket pr-2"></i>Logout</a
+        >
+      </div>
+    </nav>
+    <div
+      class="flex-1 sm:p-2 bg-gray-200 h-[100vh] overflow-y-scroll hide-scrollbar"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

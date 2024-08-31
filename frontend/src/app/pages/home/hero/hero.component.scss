@@ -1,0 +1,18 @@
+.main {
+  background-image: url(/assets/background1.webp);
+  background-color: #f8fafc;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.btn>a:nth-child(1):hover{
+ box-shadow:0 0 0 3px #e11d48;
+ transition-duration: 500ms;
+}
+.btn>a:nth-child(2):hover{
+ box-shadow:0 0 0 3px  #ffe4e6;
+ transition-duration: 500ms;
+}
+.rad{
+  border-radius:50% 50% 50% 50% / 50% 50% 50% 50%  ;
+}
